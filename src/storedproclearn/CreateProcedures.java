@@ -2,7 +2,7 @@ package storedproclearn;
 
 import java.sql.*;
 
-public class StoredProcLearn {
+public class CreateProcedures {
 
     private static Connection conn = null;
 
@@ -15,7 +15,7 @@ public class StoredProcLearn {
             addStudentProc();
             getStudentProc();
         } else {
-            System.out.println("StoredProcLearn : main : connection is null");
+            System.out.println("CreateProcedures : main : connection is null");
         }
 
     }
@@ -40,10 +40,10 @@ public class StoredProcLearn {
 
             statement.close();
 
-            System.out.println("StoredProcLearn : addClassProc : SC created successfully!");
+            System.out.println("CreateProcedures : addClassProc : SC created successfully!");
 
         } catch (SQLException ex) {
-            System.out.println("StoredProcLearn : addClassProc : error occured : " + ex.toString());
+            System.out.println("CreateProcedures : addClassProc : error occured : " + ex.toString());
         }
 
     }
@@ -70,10 +70,10 @@ public class StoredProcLearn {
 
             statement.close();
 
-            System.out.println("StoredProcLearn : addStudentProc : SC created successfully!");
+            System.out.println("CreateProcedures : addStudentProc : SC created successfully!");
 
         } catch (SQLException ex) {
-            System.out.println("StoredProcLearn : addClassProc : error occured : " + ex.toString());
+            System.out.println("CreateProcedures : addClassProc : error occured : " + ex.toString());
         }
 
     }
@@ -86,11 +86,12 @@ public class StoredProcLearn {
 
             String queryDrop = "DROP PROCEDURE IF EXISTS get_student";
 
-            String queryCreate = "CREATE PROCEDURE get_student (IN studentId INT) ";
+            String queryCreate = "CREATE PROCEDURE get_student (IN studentId INT,IN year VARCHAR(10)) ";
             queryCreate += "BEGIN ";
-            queryCreate += "SELECT * FROM student WHERE id = studentId; ";
+            queryCreate += "SELECT student.id,student.first_name,student.last_name,student.address,student_class_history.year,student_class_history.class_id FROM student INNER JOIN student_class_history ON student_class_history.student_id = student.id WHERE student.id = studentId AND student_class_history.year = year; ";
             queryCreate += "END";
 
+                    
             // drops the existing procedure if exists
             statement.execute(queryDrop);
 
@@ -99,10 +100,10 @@ public class StoredProcLearn {
 
             statement.close();
 
-            System.out.println("StoredProcLearn : getStudentProc : created successfully! ");
+            System.out.println("CreateProcedures : getStudentProc : created successfully! ");
 
         } catch (SQLException ex) {
-            System.out.println("StoredProcLearn : getStudentProc : error occured : " + ex.toString());
+            System.out.println("CreateProcedures : getStudentProc : error occured : " + ex.toString());
         }
 
     }

@@ -1,12 +1,53 @@
 package storedproclearn;
 
+import dtos.Student;
 import java.sql.*;
 
 public class Controller {
 
+    private static Connection conn = CreateConnection.getConnection();
+
+    public void signIn(int id, String pw) {
+
+        try (CallableStatement statementSignIn = conn.prepareCall("{call signIn(?,?,?)}")) {
+
+            statementSignIn.setInt(1, id);
+            statementSignIn.setString(2, pw);
+            statementSignIn.registerOutParameter(3, Types.VARCHAR);
+
+            statementSignIn.execute();
+
+            System.out.println("reeee : " + statementSignIn.getString("returnMessage"));
+
+            statementSignIn.close();
+
+        } catch (SQLException ex) {
+            System.out.println("COntroller : signIn : " + ex.toString());
+        }
+
+    }
+
+    public void logIn(int id, String password) {
+        try (CallableStatement statementSignIn = conn.prepareCall("{call logIn(?,?,?)}")) {
+
+            statementSignIn.setInt(1, id);
+            statementSignIn.setString(2, password);
+            statementSignIn.registerOutParameter(3, Types.VARCHAR);
+
+            statementSignIn.execute();
+
+            System.out.println("reeee : " + statementSignIn.getString("returnMessage"));
+
+            statementSignIn.close();
+
+        } catch (SQLException ex) {
+            System.out.println("COntroller : signIn : " + ex.toString());
+        }
+
+    }
+
     public boolean addNewClass(String grade, String name) {
 
-        Connection conn = CreateConnection.getConnection();
 
         try (CallableStatement statement = conn.prepareCall("{call add_class(?, ?)}")) {
 
@@ -32,7 +73,6 @@ public class Controller {
 
     public boolean addNewStudent(String firstName, String lastName, String address, int classId, String year) {
 
-        Connection conn = CreateConnection.getConnection();
 
         try (CallableStatement statement = conn.prepareCall("{call add_student(?, ?, ?, ?, ?)}")) {
 
@@ -58,27 +98,31 @@ public class Controller {
         }
     }
 
-    public void getStudentDataById(int id) {
+    public void getStudentDataById(int id, String recYear) {
 
-        Connection conn = CreateConnection.getConnection();
 
-        try (CallableStatement statement = conn.prepareCall("{call get_student(?)}")) {
+        try (CallableStatement statement = conn.prepareCall("{call get_student(?,?)}")) {
 
             statement.setInt(1, id);//set student id to the first parameter
+            statement.setString(2, recYear);
 
             boolean hadResults = statement.execute();
 
             while (hadResults) {
+
                 ResultSet resultSet = statement.getResultSet();
 
                 // process result set
                 while (resultSet.next()) {
-                    int studentId = resultSet.getInt("id");
-                    String firstName = resultSet.getString("first_name");
-                    String lastName = resultSet.getString("last_name");
-                    String address = resultSet.getString("address");
+                    Student recStudent = new Student();
 
-                    System.out.println("Rec student : "+Integer.toString(studentId)+" "+firstName+" "+lastName+" "+address);
+                    recStudent.setId(resultSet.getInt("id"));
+                    recStudent.setFirst_name(resultSet.getString("first_name"));
+                    recStudent.setLast_name(resultSet.getString("last_name"));
+                    recStudent.setAddress(resultSet.getString("address"));
+                    recStudent.setClassId(resultSet.getInt("class_id"));
+
+                    System.out.println("Rec student : " + recStudent.toString());
                 }
 
                 hadResults = statement.getMoreResults();

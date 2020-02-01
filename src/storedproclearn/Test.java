@@ -10,15 +10,17 @@ package storedproclearn;
  * @author User
  */
 public class Test {
-    
+
     public static void main(String[] args) {
         Controller myController = new Controller();
 
         //insert queries
 //        myController.addNewClass("1", "Nelum");
 //        myController.addNewStudent("Atheesh", "Rathnaweera", "Maharagama", 4, "2020");
-        myController.getStudentDataById(1);
-        
+        //       myController.getStudentDataById(1,"2020");
+       // myController.signIn(8, "mahela");
+        myController.logIn(8, "mahela");
+
     }
-    
+
 }
