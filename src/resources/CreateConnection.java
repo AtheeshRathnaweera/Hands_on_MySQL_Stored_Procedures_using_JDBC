@@ -3,20 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package storedproclearn;
+package resources;
 
-import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
  *
- * @author User
+ * @author atheesh27
  */
 public class CreateConnection {
-
-    private static CreateConnection dbConnection;
-    private static Connection connection;
+    
+     private static CreateConnection dbConnection;
+    private static java.sql.Connection connection;
 
     private CreateConnection() {
         //?allowMultiQueries=true
@@ -33,7 +32,7 @@ public class CreateConnection {
 
     }
 
-    public static Connection getConnection() {
+    public static java.sql.Connection getConnection() {
         if(connection == null){
             dbConnection = new CreateConnection();
             System.out.println("new connection created.");
@@ -43,5 +42,5 @@ public class CreateConnection {
         return connection;
 
     }
-
+    
 }

@@ -8,7 +8,6 @@ package procedures.auth;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-import storedproclearn.CreateConnection;
 
 /**
  *
@@ -16,19 +15,7 @@ import storedproclearn.CreateConnection;
  */
 public class LogIn {
 
-    private static Connection conn = null;
-
-    public static void main(String[] args) {
-        conn = CreateConnection.getConnection();
-
-        if (conn != null) {
-            logIn();
-        } else {
-            System.out.println("procedures/LogIn : main : connection is null");
-        }
-    }
-
-    private static void logIn() {
+    public static void procedure(Connection conn) {
 
         try (Statement statement = conn.createStatement()) {
             String queryDrop = "DROP PROCEDURE IF EXISTS logIn";
@@ -56,10 +43,10 @@ public class LogIn {
 
             statement.close();
 
-            System.out.println("procedures : LogIn : SC created successfully!");
+            System.out.println("procedures.auth : LogIn : SC created successfully!");
 
         } catch (SQLException ex) {
-            System.out.println("procedures : LogIn : SC create failed : " + ex.toString());
+            System.out.println("procedures.auth : LogIn : SC create failed : " + ex.toString());
         }
 
     }

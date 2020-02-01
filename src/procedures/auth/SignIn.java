@@ -8,9 +8,6 @@ package procedures.auth;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import storedproclearn.CreateConnection;
 
 /**
  *
@@ -18,19 +15,7 @@ import storedproclearn.CreateConnection;
  */
 public class SignIn {
 
-    private static Connection conn = null;
-
-    public static void main(String[] args) {
-        conn = CreateConnection.getConnection();
-
-        if (conn != null) {
-            signIn();
-        } else {
-            System.out.println("procedures/SignIn : main : connection is null");
-        }
-    }
-
-    private static void signIn() {
+    public static void procedure(Connection conn) {
 
         try (Statement statement = conn.createStatement()) {
             String queryDrop = "DROP PROCEDURE IF EXISTS signIn";
