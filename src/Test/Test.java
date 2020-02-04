@@ -13,13 +13,16 @@ public class Test {
     public static void main(String args[]) {
         Connection conn = CreateConnection.getConnection();
 
-        //AuthController.signIn(conn, 1, "sanga");
-        //AuthController.logIn(conn, 1, "sanga");
-        //RetrieveDataController.getStudentData(conn, 8,"2020");
-        //SaveDataController.addNewClass(conn, "2", "Olu");
-        SaveDataController.addNewStudent(conn, "Danushi", "Karunarathne", "Malabe", 6, "2020");
-        
-        
+        //AuthController.signIn(conn, 10, "sanga");
+        AuthController.logIn(conn, 10, "sanga");
+        //RetrieveDataController.getStudentData(conn, 9, "2020");
+        //RetrieveDataController.getClassById(conn, 1);
+        //SaveDataController.addNewClass(conn, "3", "Olu");
+        //SaveDataController.addNewStudent(conn, "Nuwan", "Kulasekara", "Maharagama", 1, "2020");
+        //UpdateDataController.updateStudent(conn, "Chamalka", "Rathna", "Maharaga", 00);
+        //DeleteController.deleteStudent(conn, 1);
+        //DeleteController.deleteUserAccount(conn, 8);
+
     }
 
 }

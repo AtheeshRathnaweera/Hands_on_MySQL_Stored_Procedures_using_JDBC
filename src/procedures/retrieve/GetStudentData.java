@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package procedures.retrieve;
 
 import java.sql.Connection;
@@ -34,10 +29,10 @@ public class GetStudentData {
 
             statement.close();
 
-            System.out.println("procedures.retrieve : GetStudentData : created successfully! ");
+            System.out.println("Procedures : retrieve : GetStudentData : SC created successfully! ");
 
         } catch (SQLException ex) {
-            System.out.println("procedures.retrieve : GetStudentData : error occured : " + ex.toString());
+            System.out.println("Procedures : retrieve : GetStudentData : error occured : " + ex.toString());
         }
 
     }

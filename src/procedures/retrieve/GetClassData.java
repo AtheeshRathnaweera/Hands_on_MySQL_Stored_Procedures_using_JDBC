@@ -1,4 +1,4 @@
-package procedures.save;
+package procedures.retrieve;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -8,17 +8,17 @@ import java.sql.Statement;
  *
  * @author atheesh27
  */
-public class AddNewClass {
+public class GetClassData {
 
     public static void procedure(Connection conn) {
 
         try (Statement statement = conn.createStatement()) {
 
-            String queryDrop = "DROP PROCEDURE IF EXISTS add_class";
+            String queryDrop = "DROP PROCEDURE IF EXISTS get_class_by_id";
 
-            String queryCreate = "CREATE PROCEDURE add_class (IN grade VARCHAR(45), name VARCHAR(45)) ";
+            String queryCreate = "CREATE PROCEDURE get_class_by_id (IN classId INT) ";
             queryCreate += "BEGIN ";
-            queryCreate += "INSERT INTO class (grade, name) VALUES (grade, name); ";
+            queryCreate += "SELECT * FROM class WHERE id = classId; ";
             queryCreate += "END";
 
             // drops the existing procedure if exists
@@ -29,10 +29,10 @@ public class AddNewClass {
 
             statement.close();
 
-            System.out.println("Procdures : save : AddNewClass : SC created successfully!");
+            System.out.println("Procedures : retrieve : GetClassData : SC created successfully! ");
 
         } catch (SQLException ex) {
-            System.out.println("Procdures : save : AddNewClass :  error occured : " + ex.toString());
+            System.out.println("Procedures : retrieve : GetClassData : error : " + ex.toString());
         }
 
     }

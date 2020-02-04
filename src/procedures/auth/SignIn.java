@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package procedures.auth;
 
 import java.sql.Connection;
@@ -40,10 +35,10 @@ public class SignIn {
 
             statement.close();
 
-            System.out.println("procedures : SignIn : SC created successfully!");
+            System.out.println("Procedures : auth : SignIn : SC created successfully!");
 
         } catch (SQLException ex) {
-            System.out.println("procedures : SignIn : SC create failed : " + ex.toString());
+            System.out.println("Procedures : auth : SignIn : SC create failed : " + ex.toString());
         }
 
     }

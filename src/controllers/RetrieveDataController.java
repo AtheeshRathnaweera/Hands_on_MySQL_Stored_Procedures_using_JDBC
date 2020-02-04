@@ -1,11 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controllers;
 
 import dtos.Student;
+import dtos.StudentClass;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -41,7 +37,42 @@ public class RetrieveDataController {
                     recStudent.setAddress(resultSet.getString("address"));
                     recStudent.setClassId(resultSet.getInt("class_id"));
 
-                    System.out.println("controllers : RetrieveController : " + recStudent.toString());
+                }
+
+                hadResults = statement.getMoreResults();
+            }
+
+            statement.close();
+            
+            System.out.println("controllers : RetrieveController : getStudentData : " + recStudent.toString());
+            
+        } catch (SQLException ex) {
+            System.out.println("controllers : RetrieveController : getStudentData : error occured : " + ex.toString());
+        }
+        return recStudent;
+    }
+
+    public static StudentClass getClassById(Connection conn, int classId) {
+
+        StudentClass tempClass = new StudentClass();
+
+        try (CallableStatement statement = conn.prepareCall("{call get_class_by_id(?)}")) {
+
+            statement.setInt(1, classId);
+
+            boolean hadResults = statement.execute();
+
+            while (hadResults) {
+
+                ResultSet resultSet = statement.getResultSet();
+
+                // process result set
+                while (resultSet.next()) {
+
+                    tempClass.setId(resultSet.getInt("id"));
+                    tempClass.setGrade(resultSet.getString("grade"));
+                    tempClass.setName(resultSet.getString("name"));
+
                 }
 
                 hadResults = statement.getMoreResults();
@@ -49,10 +80,14 @@ public class RetrieveDataController {
 
             statement.close();
 
+            System.out.println("controllers : RetrieveController : getClassData : " + tempClass.toString());
+
         } catch (SQLException ex) {
-            System.out.println("controllers : RetrieveController : error occured : " + ex.toString());
+            System.out.println("controllers : RetrieveController : getCLassById : error occured : " + ex.toString());
         }
-        return recStudent;
+
+        return tempClass;
+
     }
 
 }
