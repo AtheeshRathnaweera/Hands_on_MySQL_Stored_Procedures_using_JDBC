@@ -29,7 +29,7 @@ public class UpdateStudentData {
 
             statement.close();
 
-            System.out.println("procedures.retrieve : updateStudentData : SC created successfully! ");
+            System.out.println("procedures : update : updateStudentData : SC created successfully! ");
         } catch (SQLException ex) {
             System.out.println("procedures : update : updateStudentData : error occured : " + ex.toString());
         }

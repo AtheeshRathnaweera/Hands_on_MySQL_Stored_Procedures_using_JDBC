@@ -34,10 +34,12 @@ public class CreateProcedures {
         
         //update
         UpdateStudentData.procedure(myConnection);
+        UpdateClassData.procedure(myConnection);
         //update
         
         DeleteStudent.procedure(myConnection);
         DeleteUserAccounts.procedure(myConnection);
+        DeleteClass.procedure(myConnection);
         
         
     

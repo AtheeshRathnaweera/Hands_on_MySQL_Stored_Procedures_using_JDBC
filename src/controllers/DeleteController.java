@@ -48,4 +48,24 @@ public class DeleteController {
         }
 
     }
+    
+      public static void deleteClass(Connection conn, int classId) {
+        
+        try (CallableStatement statement = conn.prepareCall("{call delete_class(?)}")) {
+            statement.setInt(1, classId);
+
+            int affectedCount = statement.executeUpdate();
+            statement.close();
+
+            if (affectedCount > 0) {
+                System.out.println("DeleteController : deleteClass : class deleted successfully ! " + Integer.toString(affectedCount));
+            } else {
+                System.out.println("DeleteController : deleteClass : nothing deleted ! ");
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("DeleteController : deleteClass : error occured : " + ex.toString());
+        }
+
+    }
 }

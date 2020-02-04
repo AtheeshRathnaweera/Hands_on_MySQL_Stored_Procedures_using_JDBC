@@ -32,5 +32,29 @@ public class UpdateDataController {
             System.out.println("UpdateController : updateStudent : error occured : " + ex.toString());
         }
     }
+    
+    public static void updateClass(Connection conn, String grade, String name, int classId) {
+
+        try (CallableStatement statement = conn.prepareCall("{call update_class(?, ?, ?)}")) {
+
+            statement.setString(1, grade);
+            statement.setString(2, name);
+            statement.setInt(3, classId);
+
+            int affectedCount = statement.executeUpdate();
+            statement.close();
+
+            if (affectedCount > 0) {
+                System.out.println("UpdateController : updateClass : class update successfully ! " + Integer.toString(affectedCount));
+            }else{
+                System.out.println("UpdateController : updateClass : nothing updated ! ");
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("UpdateController : updateClass : error occured : " + ex.toString());
+        }
+    }
+    
+    
 
 }
